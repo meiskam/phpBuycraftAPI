@@ -21,7 +21,7 @@
  * Currently in 'read-only' mode, none of the actions which delete remote data have been implemented
  * 
  * @author meiskam <meiskam@gmail.com>
- * @version 3.0.1
+ * @version 3.0.2
  * @copyright 2013 meiskam / ShiniNet (http://www.shininet.org)
  * @license http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
@@ -570,7 +570,7 @@ class phpBuycraftAPI {
     if ($time <= -1 || $this->ensurePayments() === FALSE) { return NULL; }
     $output = array();
     $max = count($this->dataStore->payments);
-    for($i = $max-1; $i >= 0; $i--) {
+    for($i = 0; $i < $max; $i++) {
       if ($this->dataStore->payments[$i]->{"time"} >= $time) {
         $output[] = $i;
       } else {
@@ -589,7 +589,7 @@ class phpBuycraftAPI {
     if ($amount <= 0 || $this->ensurePayments() === FALSE) { return NULL; }
     $output = array();
     $max = count($this->dataStore->payments);
-    for($i = $max-1; $i > $max-1-$amount && $i >= 0; $i--) {
+    for($i = 0; $i < $max && $i < $amount; $i++) {
       $output[] = $i;
     }
     return $output;
